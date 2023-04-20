@@ -68,42 +68,57 @@ namespace MyNamespace
         private void AddBars(int numBars)
         {
             int numRows = (numBars - 1) / BarsPerRow + 1;
-            BarsPanel.RowDefinitions.Clear();
             BarsPanel.Children.Clear();
+
+            var grid = new Grid();
             for (int i = 0; i < numRows; i++)
             {
-                BarsPanel.RowDefinitions.Add(new RowDefinition());
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+            }
+            for (int i = 0; i < BarsPerRow; i++)
+            {
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
 
-            for (int i = 0; i < numBars; i++)
+            int barIndex = 0;
+            for (int row = 0; row < numRows; row++)
             {
-                var bar = new Bar();
-                bar.Text = $"Bar{i}";
-                bar.sortOfScoreboard.Value = new Random().Next(1, 11);
-                //bar.DeleteButtonClick += DeleteBar;
-                bar.Width = 113;
-                bar.Height = 59;
-                int row = i / BarsPerRow;
-                int col = i % BarsPerRow;
-                Grid.SetRow(bar, row);
-                Grid.SetColumn(bar, col);
-                BarsPanel.Children.Add(bar);
+                for (int col = 0; col < BarsPerRow && barIndex < numBars; col++)
+                {
+                    var bar = new Bar();
+                    bar.Text = $"Bar{barIndex}";
+                    bar.sortOfScoreboard.Value = new Random().Next(1, 11);
+                    bar.Width = 113;
+                    bar.Height = 59;
+                    bar.Margin = new Thickness(5);
+                    //bar.DeleteButtonClick += DeleteBar;
+
+                    Grid.SetRow(bar, row);
+                    Grid.SetColumn(bar, col);
+                    grid.Children.Add(bar);
+
+                    barIndex++;
+                }
             }
+
+            BarsPanel.Children.Add(grid);
 
             var addNewButton = new Button();
             addNewButton.Content = "Add new";
             addNewButton.Click += AddBar_Click;
             addNewButton.Width = 113;
             addNewButton.Height = 59;
-            int addNewIndex = numBars - 1;
+            addNewButton.Margin = new Thickness(5);
+            int addNewIndex = numBars;
             int addNewRow = addNewIndex / BarsPerRow;
             int addNewCol = addNewIndex % BarsPerRow;
             Grid.SetRow(addNewButton, addNewRow);
             Grid.SetColumn(addNewButton, addNewCol);
-            BarsPanel.Children.Add(addNewButton);
+            grid.Children.Add(addNewButton);
 
             UpdateTotalCount();
         }
+
 
         private void UpdateTotalCount()
         {
