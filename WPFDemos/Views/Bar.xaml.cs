@@ -40,14 +40,14 @@ namespace MyNamespace
 
         public event EventHandler DeleteRequested;
 
-        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        public void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             BorderBrush = Brushes.DeepSkyBlue;
             textBox.Visibility = Visibility.Visible;
             sortOfScoreboard.Visibility = Visibility.Visible;
         }
 
-        private void OnLostFocus(object sender, RoutedEventArgs e)
+        public void OnLostFocus(object sender, RoutedEventArgs e)
         {
             BorderBrush = Brushes.Gray;
             textBox.Visibility = Visibility.Hidden;

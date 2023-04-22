@@ -29,6 +29,13 @@ namespace MyNamespace
     public partial class SetOfBars : UserControl
     {
         private const int BarsPerRow = 4;
+        private int totalNumBars;
+        private int rowAddNew;
+        private int colAddNew;
+
+        private Grid grid;
+        private Button addNewButton;
+        private Bar temp = new Bar();
 
         public SetOfBars()
         {
@@ -40,9 +47,51 @@ namespace MyNamespace
         {
             if (int.TryParse(tbNumberOfBars.Text, out int numBars))
             {
-                AddBars(numBars + 1);
+                totalNumBars = numBars;
+                AddBars(numBars);
             }
         }
+
+        private void AddNew_Click(object sender, RoutedEventArgs e)
+        {
+            var bar = new Bar();
+            bar.Text = $"Bar";
+            bar.sortOfScoreboard.Value = new Random().Next(1, 11);
+            bar.Width = 113;
+            bar.Height = 59;
+            bar.Margin = new Thickness(5);
+           
+            //bar.DeleteButtonClick += DeleteBar;
+
+            Grid.SetRow(bar, rowAddNew);
+            Grid.SetColumn(bar, colAddNew);
+            grid.Children.Add(bar);
+            bar.OnMouseDown(sender,null);
+            temp.OnLostFocus(sender,null);
+            temp = bar;
+
+            if (colAddNew == BarsPerRow-1)
+            {
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+              
+                //grid.RowDefinitions.Add(new RowDefinition());
+                rowAddNew++;
+                colAddNew = 0;
+                totalNumBars++;
+                Grid.SetRow(addNewButton, rowAddNew);
+                Grid.SetColumn(addNewButton, 0);
+            }
+            else
+            {
+                colAddNew++;
+                totalNumBars++;
+                Grid.SetRow(addNewButton, rowAddNew);
+                Grid.SetColumn(addNewButton, colAddNew);
+            }
+
+        }
+
+       
 
         private void DeleteBar(object sender, RoutedEventArgs e)
         {
@@ -67,10 +116,14 @@ namespace MyNamespace
 
         private void AddBars(int numBars)
         {
+           
             int numRows = (numBars - 1) / BarsPerRow + 1;
+            numRows += (numBars % BarsPerRow == 0) ? 1 : 0;
+
             BarsPanel.Children.Clear();
 
-            var grid = new Grid();
+            grid = new Grid();
+            
             for (int i = 0; i < numRows; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
@@ -103,17 +156,32 @@ namespace MyNamespace
 
             BarsPanel.Children.Add(grid);
 
-            var addNewButton = new Button();
+
+            addNewButton = new Button();
             addNewButton.Content = "Add new";
-            addNewButton.Click += AddBar_Click;
+            addNewButton.Click += AddNew_Click;
             addNewButton.Width = 113;
             addNewButton.Height = 59;
             addNewButton.Margin = new Thickness(5);
             int addNewIndex = numBars;
-            int addNewRow = addNewIndex / BarsPerRow;
+            int addNewRow = (int) Math.Floor((double) (addNewIndex / BarsPerRow));
             int addNewCol = addNewIndex % BarsPerRow;
-            Grid.SetRow(addNewButton, addNewRow);
-            Grid.SetColumn(addNewButton, addNewCol);
+            if (addNewCol == 0)
+            {
+                addNewRow++;
+                Grid.SetRow(addNewButton, addNewRow);
+                Grid.SetColumn(addNewButton, 0);
+                rowAddNew = addNewRow;
+                colAddNew = 0;
+            }
+            else
+            {
+                addNewRow++;
+                Grid.SetRow(addNewButton, addNewRow);
+                Grid.SetColumn(addNewButton, addNewCol);
+                rowAddNew = addNewRow;
+                colAddNew = addNewCol;
+            }
             grid.Children.Add(addNewButton);
 
             UpdateTotalCount();
