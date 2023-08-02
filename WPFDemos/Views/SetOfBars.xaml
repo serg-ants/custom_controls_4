@@ -20,9 +20,11 @@
         </StackPanel>
 
         <!-- Bars Area -->
-        <ScrollViewer Grid.Row="1" Name="AreaScrollViewer"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Name="AreaScrollViewer"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <Border BorderBrush="Gray" BorderThickness="1" Background="Silver">
-                <Grid x:Name="BarsPanel"/>
+                <WrapPanel x:Name="BarsPanel">
+                  
+                </WrapPanel>
             </Border>
         </ScrollViewer>
 

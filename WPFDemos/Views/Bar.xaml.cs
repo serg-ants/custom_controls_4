@@ -56,12 +56,24 @@ namespace MyNamespace
 
         private void OnDeleteClick(object sender, RoutedEventArgs e)
         {
-            var parentGrid = this.Parent as Grid;
-            if (parentGrid != null)
+            var parentWP = this.Parent as WrapPanel;
+
+            var test = VisualTreeHelper.GetParent(this);
+            while (test != null && !(test is SetOfBars))
             {
-                parentGrid.Children.Remove(this);
+                test = VisualTreeHelper.GetParent(test);
+            }
+            var parentSetOfBars = test as SetOfBars;
+
+            if (parentWP != null)
+            {
+                parentWP.Children.Remove(this);
                 DeleteRequested?.Invoke(this, EventArgs.Empty);
             }
+
+           
+            //parentSetOfBars.Rearrange();
+            parentSetOfBars.totalNumBars--;
         }
     }
 }

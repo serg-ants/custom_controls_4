@@ -9,16 +9,19 @@
         xmlns:vm="clr-namespace:MyNamespace"
        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1000">
     <Grid>
-        <cc:CustomControl1 x:Name="myReverseTxt" Margin="404,42,155.333,205.667"></cc:CustomControl1>
-        <Button Content="Open New Form" Click="OpenNewForm_Click" Margin="40,207,479.333,10.667"/>
-        <cc2:SortOfScoreboard x:Name="ss"></cc2:SortOfScoreboard>
+        <cc:CustomControl1 x:Name="myReverseTxt" Margin="40,29,740.333,218.667"></cc:CustomControl1>
+        <Button Content="Open New Form" Click="OpenNewForm_Click" Margin="40,207,740.333,10.667"/>
+        <cc2:SortOfScoreboard x:Name="ss" Margin="140,243,751.333,154.667"></cc2:SortOfScoreboard>
         <!--<br:Bar x:Name="testBar" Margin="40,23,530.333,302.667"/>-->
         <vm:MyView x:Name="TstSht" 
                    
-                   Margin="347,286,212.333,55.667"/>
+                   Margin="40,29,740.333,312.667"/>
 
-        <vm:Bar x:Name="asas"></vm:Bar>
+        <vm:Bar x:Name="asas" Margin="40,266,640.333,95.667"></vm:Bar>
+    
+     
+    
     </Grid>
 </Window>
