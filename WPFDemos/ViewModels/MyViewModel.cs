@@ -22,35 +22,48 @@ using WPFDemos.ViewModels;
 
 namespace MyNamespace
 {
-    public class MyViewModel : INotifyPropertyChanged
+    //public class MyViewModel : INotifyPropertyChanged
+    //{
+    //    private ObservableCollection<MyObject> _myObjects;
+
+    //    public event PropertyChangedEventHandler PropertyChanged;
+
+    //    public ObservableCollection<MyObject> MyObjects
+    //    {
+    //        get { return _myObjects; }
+    //        set
+    //        {
+    //            _myObjects = value;
+    //            OnPropertyChanged(nameof(MyObjects));
+    //        }
+    //    }
+
+    //    public MyViewModel()
+    //    {
+    //        MyObjects = new ObservableCollection<MyObject>
+    //    {
+    //        new MyObject { Name = "Object 1", ItemsCount = 5 },
+    //        new MyObject { Name = "Object 2", ItemsCount = 10 },
+    //        // add more objects here...
+    //    };
+    //    }
+
+    //    protected void OnPropertyChanged(string propertyName)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    }
+    //}
+
+    public class MyViewModel
     {
-        private ObservableCollection<MyObject> _myObjects;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public ObservableCollection<MyObject> MyObjects
-        {
-            get { return _myObjects; }
-            set
-            {
-                _myObjects = value;
-                OnPropertyChanged(nameof(MyObjects));
-            }
-        }
+        public ObservableCollection<MyObject> MyObjects { get; set; }
 
         public MyViewModel()
         {
-            MyObjects = new ObservableCollection<MyObject>
-        {
-            new MyObject { Name = "Object 1", ItemsCount = 5 },
-            new MyObject { Name = "Object 2", ItemsCount = 10 },
-            // add more objects here...
-        };
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            MyObjects = new ObservableCollection<MyObject>();
+            MyObjects.Add(new MyObject { Name = "Object 1", ItemsCount = 5 });
+            MyObjects.Add(new MyObject { Name = "Object 2", ItemsCount = 10 });
+            // Add more objects as needed
         }
     }
 }

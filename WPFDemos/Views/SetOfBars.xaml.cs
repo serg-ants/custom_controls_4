@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 
 using System.Runtime.CompilerServices;
 
+using System.Security.Cryptography;
 
 /// <summary>
 /// Interaction logic for SetOfBars.xaml
@@ -30,38 +31,43 @@ namespace MyNamespace
     {
         private const int BarsPerRow = 4;
         public int totalNumBars;
-        private int rowAddNew;
-        private int colAddNew;
 
         private WrapPanel gridAsWP;
         private Button addNewButton;
         private Bar temp = new Bar();
+        MyObject ayayaya = new MyObject();
 
-        int en(int i, int j)
+        public ObservableCollection<MyObject> MyObjects
         {
-            return i * BarsPerRow + j + 1;
-        }
+            get; set;
 
-        int en(int x, char c)
-        {
-            if (c == 'c')
-            {
-                return (x - 1) % BarsPerRow;
-            }
-            else if (c == 'r')
-            {
-                return (x - 1) / BarsPerRow;
-            }
-            else
-            {
-              return -1;
-            }
+
         }
+        
+       
+    
+
+       
+
+
+        public string hexstr()
+        {
+            byte[] randomBytes = new byte[4];
+            using (RandomNumberGenerator rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(randomBytes);
+            }
+            uint num = BitConverter.ToUInt32(randomBytes, 0);
+            return num.ToString("X8");
+        }
+        
 
         public SetOfBars()
         {
             InitializeComponent();
-            ScrollViewer.SetCanContentScroll(AreaScrollViewer, false);
+            DataContext = new MyViewModel();
+
+            MyObjects = new ObservableCollection<MyObject>();
         }
 
         private void AddBar_Click(object sender, RoutedEventArgs e)
@@ -76,11 +82,14 @@ namespace MyNamespace
         private void AddNew_Click(object sender, RoutedEventArgs e)
         {
             var bar = new Bar();
-            bar.Text = $"Bar";
+            bar.Text  = "Bar " + hexstr();
             bar.sortOfScoreboard.Value = new Random().Next(1, 11);
             bar.Width = 113;
             bar.Height = 59;
             bar.Margin = new Thickness(5);
+
+            MyObjects.Add(new MyObject { Name = bar.Text, ItemsCount = bar.sortOfScoreboard.Value });
+
 
             gridAsWP.Children.Remove(addNewButton);
             gridAsWP.Children.Add(bar);
@@ -102,18 +111,8 @@ namespace MyNamespace
             var bar = ((Button)sender).DataContext as Bar;
             if (bar != null)
             {
-                int index = BarsPanel.Children.IndexOf(bar);
+
                 BarsPanel.Children.Remove(bar);
-                if (index != -1)
-                {
-                    for (int i = index; i < BarsPanel.Children.Count; i++)
-                    {
-                        if (BarsPanel.Children[i] is Bar nextBar)
-                        {
-                            nextBar.Text = $"Bar{i}";
-                        }
-                    }
-                }
                 UpdateTotalCount();
             }
         }
@@ -127,13 +126,15 @@ namespace MyNamespace
             for (int indx = 0; indx < numBars; indx++)
             {
                 var bar = new Bar();
-                bar.Text = $"Bar{indx + 1}";
+                bar.Text = "Bar "+hexstr();
                 bar.sortOfScoreboard.Value = new Random().Next(1, 11);
                 bar.Width = 113;
                 bar.Height = 59;
                 bar.Margin = new Thickness(5);
                 //bar.DeleteButtonClick += DeleteBar;
                 gridAsWP.Children.Add(bar);
+
+                MyObjects.Add(new MyObject { Name = bar.Text, ItemsCount = bar.sortOfScoreboard.Value });
             }
           
             BarsPanel.Children.Add(gridAsWP);

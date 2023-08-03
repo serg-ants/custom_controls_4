@@ -40,6 +40,28 @@ namespace MyNamespace
 
         public event EventHandler DeleteRequested;
 
+        ////////////
+        public static readonly DependencyProperty NameProperty =
+        DependencyProperty.Register("Name", typeof(string), typeof(Bar));
+
+        public static readonly DependencyProperty ItemsCountProperty =
+            DependencyProperty.Register("ItemsCount", typeof(int), typeof(Bar));
+
+        public string Name
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
+        }
+
+        public int ItemsCount
+        {
+            get { return (int)GetValue(ItemsCountProperty); }
+            set { SetValue(ItemsCountProperty, value); }
+        }
+
+        ////////////
+
+
         public void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             BorderBrush = Brushes.DeepSkyBlue;
