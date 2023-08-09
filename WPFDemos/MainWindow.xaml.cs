@@ -25,10 +25,6 @@ namespace WPFDemos
             InitializeComponent();
         }
 
-        private void OpenNewForm_Click(object sender, RoutedEventArgs e)
-        {
-            NewForm newForm = new NewForm();
-            newForm.ShowDialog();
-        }
+       
     }
 }

@@ -31,6 +31,7 @@ namespace MyNamespace
     {
         private const int BarsPerRow = 4;
         public int totalNumBars;
+        public int totalCount = 0;
 
         private WrapPanel gridAsWP;
         private Button addNewButton;
@@ -169,6 +170,32 @@ namespace MyNamespace
             }
         }
 
-       
+        private void Upd(object sender, MouseButtonEventArgs e)
+        {
+            if (gridAsWP== null)
+            {
+                // Handle empty gridAsWP
+            }
+            else
+            {
+                int totalCount = 0;
+                foreach (var child in gridAsWP.Children)
+                {
+                    if (child is Bar bar)
+                    {
+                        totalCount += bar.sortOfScoreboard.Value;
+                    }
+                }
+                tbTotalCount.Text = "Total count: " + (totalCount);
+            }
+
+           
+        }
+
+        private void Upd(object sender, MouseEventArgs e)
+        {
+            MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
+            Upd(sender, args);
+        }
     }
 }
