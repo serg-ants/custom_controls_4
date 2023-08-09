@@ -44,11 +44,11 @@ namespace MyNamespace
 
 
         }
-        
-       
-    
 
-       
+
+
+
+
 
 
         public string hexstr()
@@ -61,7 +61,7 @@ namespace MyNamespace
             uint num = BitConverter.ToUInt32(randomBytes, 0);
             return num.ToString("X8");
         }
-        
+
 
         public SetOfBars()
         {
@@ -83,7 +83,7 @@ namespace MyNamespace
         private void AddNew_Click(object sender, RoutedEventArgs e)
         {
             var bar = new Bar();
-            bar.Text  = "Bar " + hexstr();
+            bar.Text = "Bar " + hexstr();
             bar.sortOfScoreboard.Value = new Random().Next(1, 11);
             bar.Width = 113;
             bar.Height = 59;
@@ -103,6 +103,9 @@ namespace MyNamespace
             addNewButton.Margin = new Thickness(5);
 
             gridAsWP.Children.Add(addNewButton);
+
+            var args = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
+            bar.OnMouseDown(sender, args);
         }
 
 
@@ -127,7 +130,7 @@ namespace MyNamespace
             for (int indx = 0; indx < numBars; indx++)
             {
                 var bar = new Bar();
-                bar.Text = "Bar "+hexstr();
+                bar.Text = "Bar " + hexstr();
                 bar.sortOfScoreboard.Value = new Random().Next(1, 11);
                 bar.Width = 113;
                 bar.Height = 59;
@@ -137,7 +140,7 @@ namespace MyNamespace
 
                 MyObjects.Add(new MyObject { Name = bar.Text, ItemsCount = bar.sortOfScoreboard.Value });
             }
-          
+
             BarsPanel.Children.Add(gridAsWP);
 
             addNewButton = new Button();
@@ -146,7 +149,7 @@ namespace MyNamespace
             addNewButton.Width = 113;
             addNewButton.Height = 59;
             addNewButton.Margin = new Thickness(5);
-          
+
             gridAsWP.Children.Add(addNewButton);
 
             UpdateTotalCount();
@@ -172,7 +175,19 @@ namespace MyNamespace
 
         private void Upd(object sender, MouseButtonEventArgs e)
         {
-            if (gridAsWP== null)
+            totalCountUpd();
+            namesColoring();
+        }
+
+        private void Upd(object sender, MouseEventArgs e)
+        {
+            MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
+            Upd(sender, args);
+        }
+
+        public void totalCountUpd()
+        {
+            if (gridAsWP == null)
             {
                 // Handle empty gridAsWP
             }
@@ -184,18 +199,44 @@ namespace MyNamespace
                     if (child is Bar bar)
                     {
                         totalCount += bar.sortOfScoreboard.Value;
+                        bar.textBlocktextBox.Foreground = Brushes.Red;
                     }
                 }
                 tbTotalCount.Text = "Total count: " + (totalCount);
             }
-
-           
         }
 
-        private void Upd(object sender, MouseEventArgs e)
+        public void namesColoring()
         {
-            MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
-            Upd(sender, args);
+            if (gridAsWP == null)
+            {
+                // Handle empty gridAsWP
+            }
+            else
+            {
+                // get all the Bar elements in the WrapPanel
+                var bars = gridAsWP.Children.OfType<Bar>();
+
+                // create a dictionary to keep track of which texts have already been seen
+                var seenTexts = new Dictionary<string, bool>();
+
+                // iterate through each Bar
+                foreach (var bar in bars)
+                {
+                    // check if we've already seen this text before
+                    if (seenTexts.ContainsKey(bar.Text))
+                    {
+                        // if so, set the text color to red
+                        bar.textBlocktextBox.Foreground = Brushes.Red;
+                    }
+                    else
+                    {
+                        // otherwise, mark this text as seen
+                        seenTexts[bar.Text] = true;
+                        bar.textBlocktextBox.Foreground = Brushes.Black;
+                    }
+                }
+            }
         }
     }
 }
