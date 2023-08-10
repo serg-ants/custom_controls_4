@@ -135,6 +135,7 @@ namespace MyNamespace
                 bar.Width = 113;
                 bar.Height = 59;
                 bar.Margin = new Thickness(5);
+              
                 //bar.DeleteButtonClick += DeleteBar;
                 gridAsWP.Children.Add(bar);
 

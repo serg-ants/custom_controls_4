@@ -97,5 +97,14 @@ namespace MyNamespace
             //parentSetOfBars.Rearrange();
             parentSetOfBars.totalNumBars--;
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the entered text is a digit
+            if (!char.IsDigit(e.Text[0]))
+            {
+                e.Handled = true; // Ignore the input
+            }
+        }
     }
 }

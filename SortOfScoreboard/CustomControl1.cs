@@ -16,10 +16,26 @@ using System.Windows.Shapes;
 
 namespace SortOfScoreboard
 {
-    public class SortOfScoreboard : Control
+    public partial class SortOfScoreboard : Control
     {
 
+    //    public static readonly DependencyProperty AllowNonDigitsProperty =
+    //DependencyProperty.Register("AllowNonDigits", typeof(bool), typeof(SortOfScoreboard), new PropertyMetadata(false));
 
+    //    public bool AllowNonDigits
+    //    {
+    //        get { return (bool)GetValue(AllowNonDigitsProperty); }
+    //        set { SetValue(AllowNonDigitsProperty, value); }
+    //    }
+
+    //    public void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    //    {
+    //        // Check if the entered text is a digit or allowed if AllowNonDigits is true
+    //        if (!char.IsDigit(e.Text[0]) && !AllowNonDigits)
+    //        {
+    //            e.Handled = true; // Ignore the input
+    //        }
+    //    }
 
         static SortOfScoreboard()
         {
@@ -75,6 +91,7 @@ namespace SortOfScoreboard
             IncreaseCommand = new RelayCommand(() => Value++);
             DecreaseCommand = new RelayCommand(() => Value--);
         }
+
     }
 
     public class RelayCommand : ICommand
