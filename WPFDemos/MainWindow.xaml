@@ -12,10 +12,7 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical">
-            <cc2:SortOfScoreboard x:Name="ss" ></cc2:SortOfScoreboard>
-            <!--<br:Bar x:Name="testBar" Margin="40,23,530.333,302.667"/>-->
-            
-
+        
             <vm:Bar x:Name="asas" ></vm:Bar>
             <vm:Bar x:Name="bruh" ></vm:Bar>
 
