@@ -27,6 +27,8 @@ namespace MyNamespace
 {
     public partial class Bar : UserControl
     {
+        
+
         public Bar()
         {
             InitializeComponent();
@@ -64,16 +66,55 @@ namespace MyNamespace
 
         public void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            BorderBrush = Brushes.DeepSkyBlue;
-            textBox.Visibility = Visibility.Visible;
-            sortOfScoreboard.Visibility = Visibility.Visible;
+            //Bar b = sender as Bar;
+            //b.BorderBrush = Brushes.DeepSkyBlue;
+            //b.textBox.Visibility = Visibility.Visible;
+            //b.sortOfScoreboard.Visibility = Visibility.Visible;
+
+            //b.sortOfScoreboard.Nums.Focus();
+            //b.sortOfScoreboard.Nums.CaretIndex = sortOfScoreboard.Nums.Text.Length;
+
+
+            //  if (!(textBox.Visibility == Visibility.Visible))
+            if (!(textBox.Visibility == Visibility.Visible))
+            {
+                BorderBrush = Brushes.DeepSkyBlue;
+                textBox.Visibility = Visibility.Visible;
+                sortOfScoreboard.Visibility = Visibility.Visible;
+
+                //textBox.Focus();
+                this.Focus();
+                //e.Handled=true;
+            }
+
+           
+            //sortOfScoreboard.Nums.Focus();
+            
+
+
+            //sortOfScoreboard.Nums.Focus();
+            //sortOfScoreboard.Nums.CaretIndex = sortOfScoreboard.Nums.Text.Length;
+
+
+
+            //TextBox Ae = sortOfScoreboard.Nums as TextBox;
+            //Ae.Focus();
+
+
+
         }
 
         public void OnLostFocus(object sender, RoutedEventArgs e)
         {
-            BorderBrush = Brushes.Gray;
-            textBox.Visibility = Visibility.Hidden;
-            sortOfScoreboard.Visibility = Visibility.Hidden;
+            //bool Tout = textBox.IsFocused == false && sortOfScoreboard.Nums.IsFocused == false &&
+            //    sortOfScoreboard.Dec.IsFocused == false && sortOfScoreboard.Inc.IsFocused == false;
+
+            if (!(IsMouseOver==true))
+            {
+                BorderBrush = Brushes.Gray;
+                textBox.Visibility = Visibility.Hidden;
+                sortOfScoreboard.Visibility = Visibility.Hidden;
+            }
         }
 
         private void OnDeleteClick(object sender, RoutedEventArgs e)
@@ -98,13 +139,13 @@ namespace MyNamespace
             parentSetOfBars.totalNumBars--;
         }
 
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            // Check if the entered text is a digit
-            if (!char.IsDigit(e.Text[0]))
-            {
-                e.Handled = true; // Ignore the input
-            }
-        }
+        //private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    // Check if the entered text is a digit
+        //    if (!char.IsDigit(e.Text[0]))
+        //    {
+        //        e.Handled = true; // Ignore the input
+        //    }
+        //}
     }
 }

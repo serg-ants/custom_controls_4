@@ -124,10 +124,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CCReverseText\CCReverseText.csproj">
-      <Project>{c198d29a-67e3-47b7-91ef-aec8039b7e5b}</Project>
-      <Name>CCReverseText</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SortOfScoreboard\SortOfScoreboard.csproj">
       <Project>{736a2b87-f4bf-47e9-a36f-dde03bf27739}</Project>
       <Name>SortOfScoreboard</Name>

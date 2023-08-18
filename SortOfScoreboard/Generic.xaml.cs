@@ -19,27 +19,95 @@ namespace SortOfScoreboard
     public partial class SortOfScoreboard : Control
     {
 
-    //    public static readonly DependencyProperty AllowNonDigitsProperty =
-    //DependencyProperty.Register("AllowNonDigits", typeof(bool), typeof(SortOfScoreboard), new PropertyMetadata(false));
 
-    //    public bool AllowNonDigits
-    //    {
-    //        get { return (bool)GetValue(AllowNonDigitsProperty); }
-    //        set { SetValue(AllowNonDigitsProperty, value); }
-    //    }
+        public Button Inc;
+        public Button Dec;
+        public TextBox Nums;
 
-    //    public void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-    //    {
-    //        // Check if the entered text is a digit or allowed if AllowNonDigits is true
-    //        if (!char.IsDigit(e.Text[0]) && !AllowNonDigits)
-    //        {
-    //            e.Handled = true; // Ignore the input
-    //        }
-    //    }
+        public bool _naturals1to10Only;
+        private int _maxValue;
+        private int _minValue;
+
+        public bool Naturals1to10Only
+        {
+            get { return _naturals1to10Only; }
+            set
+            {
+                _naturals1to10Only = value;
+                if (!_naturals1to10Only)
+                {
+                    _maxValue = 50000;
+                    _minValue = -50000;
+                }
+                else
+                {
+                    _maxValue = 10;
+                    _minValue = 1;
+                }
+            }
+        }
+
+        public int MaxValue
+        {
+            get { return _maxValue; }
+            set { _maxValue = value; }
+        }
+
+        public int MinValue
+        {
+            get { return _minValue; }
+            set { _minValue = value; }
+        }
+
 
         static SortOfScoreboard()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SortOfScoreboard), new FrameworkPropertyMetadata(typeof(SortOfScoreboard)));
+        }
+
+        //TextBox Nums = null;
+        //Button Inc = null;
+        //Button Dec = null;
+        
+
+        public override void OnApplyTemplate()
+        {
+            
+            Nums = GetTemplateChild("Nums") as TextBox;
+            Nums.PreviewTextInput += TextBox_PreviewTextInput;
+            Nums.TextChanged += TextBox_TextChanged;
+
+            //Inc = GetTemplateChild("Inc") as Button;
+            //Dec = GetTemplateChild("Dec") as Button;
+        }
+   
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+          
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the entered text is a digit
+
+            if (Naturals1to10Only)
+            {
+                 if (!char.IsDigit(e.Text[0]))
+                {
+                    e.Handled = true; // Ignore the input
+                }
+            }
+            else
+            {
+                TextBox textBox = sender as TextBox;
+
+                if (!(char.IsDigit(e.Text[0])||(e.Text[0] == '-' && textBox.CaretIndex == 0)))
+                {
+                    e.Handled = true; // Ignore the input
+                }
+            }
+
+               
         }
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
@@ -48,17 +116,27 @@ namespace SortOfScoreboard
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             int newValue = (int)e.NewValue;
-            int maxValue = 50000;
-            int minValue = -50000;
+            int tempMaxV = ((SortOfScoreboard)d).MaxValue;
+            int tempMinV = ((SortOfScoreboard)d).MinValue;
 
-            if (newValue > maxValue)
+            if (newValue > tempMaxV)
             {
-                ((SortOfScoreboard)d).Value = maxValue;
+                ((SortOfScoreboard)d).Value = tempMaxV;
             }
-            else if (newValue < minValue)
+            else if (newValue < tempMinV)
             {
-                ((SortOfScoreboard)d).Value = minValue;
+                ((SortOfScoreboard)d).Value = tempMinV;
             }
+
+
+            //Button Inc = ((SortOfScoreboard)d).Inc as Button;
+            //Button Dec = ((SortOfScoreboard)d).Dec as Button;
+
+            //if (((SortOfScoreboard)d).Value == tempMaxV)
+            //{ ((SortOfScoreboard)d).Inc.IsEnabled = false; ((SortOfScoreboard)d).Inc.Background = Brushes.Red; }
+            //if (((SortOfScoreboard)d).Value == tempMinV)
+            //{ ((SortOfScoreboard)d).Dec.IsEnabled = false; ((SortOfScoreboard)d).Inc.Background = Brushes.Red; }
+        
         }
 
 
@@ -75,6 +153,9 @@ namespace SortOfScoreboard
         {
             get => (ICommand)GetValue(IncreaseCommandProperty);
             set => SetValue(IncreaseCommandProperty, value);
+
+
+
         }
 
         public static readonly DependencyProperty DecreaseCommandProperty =
@@ -88,8 +169,12 @@ namespace SortOfScoreboard
 
         public SortOfScoreboard()
         {
+           
             IncreaseCommand = new RelayCommand(() => Value++);
             DecreaseCommand = new RelayCommand(() => Value--);
+            //Inc = new Button();
+            //Dec = new Button();
+            Naturals1to10Only = false;
         }
 
     }

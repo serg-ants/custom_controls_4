@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SortOfScoreboard.Properties {
+namespace SortOfScoreboardNamespace.Properties {
     
     
     /// <summary>

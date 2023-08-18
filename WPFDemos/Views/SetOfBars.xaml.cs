@@ -35,7 +35,10 @@ namespace MyNamespace
 
         private WrapPanel gridAsWP;
         private Button addNewButton;
+
         private Bar temp = new Bar();
+        private Bar temp2 = new Bar();
+
         MyObject ayayaya = new MyObject();
 
         public ObservableCollection<MyObject> MyObjects
@@ -85,6 +88,7 @@ namespace MyNamespace
             var bar = new Bar();
             bar.Text = "Bar " + hexstr();
             bar.sortOfScoreboard.Value = new Random().Next(1, 11);
+            bar.sortOfScoreboard.Naturals1to10Only = true;
             bar.Width = 113;
             bar.Height = 59;
             bar.Margin = new Thickness(5);
@@ -105,7 +109,12 @@ namespace MyNamespace
             gridAsWP.Children.Add(addNewButton);
 
             var args = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
+            bar.Focus();
             bar.OnMouseDown(sender, args);
+            //
+            //bar.textBox.Focus();
+            //temp.OnLostFocus(sender,e);
+            //temp = bar;
         }
 
 
@@ -132,6 +141,7 @@ namespace MyNamespace
                 var bar = new Bar();
                 bar.Text = "Bar " + hexstr();
                 bar.sortOfScoreboard.Value = new Random().Next(1, 11);
+                bar.sortOfScoreboard.Naturals1to10Only = true;
                 bar.Width = 113;
                 bar.Height = 59;
                 bar.Margin = new Thickness(5);
@@ -239,5 +249,6 @@ namespace MyNamespace
                 }
             }
         }
+
     }
 }
