@@ -6,19 +6,24 @@
         xmlns:local="clr-namespace:WPFDemos"
 
         xmlns:cc2="clr-namespace:SortOfScoreboard;assembly=SortOfScoreboard"
-        xmlns:vm="clr-namespace:MyNamespace"
-       
+        xmlns:vm="clr-namespace:SetOfBarsLib;assembly=SetOfBarsLib"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Orientation="Horizontal">
-        <StackPanel Orientation="Vertical">
         
-            <vm:Bar x:Name="asas" ></vm:Bar>
-            <vm:Bar x:Name="bruh" ></vm:Bar>
+        
+        
+        <StackPanel Orientation="Vertical">
+       
+            <!--<vm:Bar x:Name="asas" ></vm:Bar>
+            <vm:Bar x:Name="bruh" ></vm:Bar>-->
 
         </StackPanel>
 
-        <vm:SetOfBars x:Name="tss" ></vm:SetOfBars>
+        <!--<vm:SetOfBars x:Name="tss" ></vm:SetOfBars>-->
+
+        <vm:SetOfBars></vm:SetOfBars>
 
     </StackPanel>
 </Window>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDemos", "WPFDemos\WPFDem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortOfScoreboard", "SortOfScoreboard\SortOfScoreboard.csproj", "{736A2B87-F4BF-47E9-A36F-DDE03BF27739}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetOfBarsLib", "SetOfBarsLib\SetOfBarsLib.csproj", "{8E2E3063-92E7-4812-A01E-EA9C85521D42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{736A2B87-F4BF-47E9-A36F-DDE03BF27739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{736A2B87-F4BF-47E9-A36F-DDE03BF27739}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{736A2B87-F4BF-47E9-A36F-DDE03BF27739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2E3063-92E7-4812-A01E-EA9C85521D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2E3063-92E7-4812-A01E-EA9C85521D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2E3063-92E7-4812-A01E-EA9C85521D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2E3063-92E7-4812-A01E-EA9C85521D42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
